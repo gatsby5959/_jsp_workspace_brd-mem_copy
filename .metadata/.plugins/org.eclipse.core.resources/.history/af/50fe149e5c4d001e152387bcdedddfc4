@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>여긴 디테일 페이지입니다.</h1>
+	<table border=1>
+		<tr>
+			<th>1</th>
+			<td>2</td>
+		</tr>
+		<tr>
+			<th>3</th>
+			<td>4</td>
+		</tr>
+		<tr>
+			<th>5</th>
+			<td>6</td>
+		</tr>
+		<tr>
+			<th>7</th>
+			<td>8</td>
+		</tr>
+		<tr>
+			<th>9</th>
+			<td>10</td>
+		</tr>
+
+	</table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+package service;
+
+import java.util.List;
+
+import domain.BoardVO;
+
+public interface Service {
+
+	int add(BoardVO bvo);
+
+	List<BoardVO> getlist();
+
+	void detailview(int bno);
+
+}

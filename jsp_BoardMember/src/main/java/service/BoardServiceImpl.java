@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +22,39 @@ public class BoardServiceImpl implements Service {
 
 	@Override
 	public int add(BoardVO bvo) {
-	      log.info("service register check 2");
+	      log.info("service add check 2");
 	      return bdao.insert(bvo);
 	}
+
+	@Override
+	public List<BoardVO> getlist() {
+		 log.info("service     List<BoardVO>    check 2");
+		return bdao.selectList();
+	}
+
+	@Override
+	public BoardVO detailview(int bno) {
+		log.info("서비스임플");
+		return bdao.selectOne(bno);
+	}
+
+	@Override
+	public BoardVO getdetailformodi(int bno) {
+		log.info("getdetailformodi 서비스임플 시작");
+		return bdao.selectOne(bno);
+	}
+
+	@Override
+	public int modifForEdit(BoardVO bvo) {
+		log.info("modifForEdit 서비스임플 시작");
+		return bdao.update(bvo);
+	}
+
+	@Override
+	public int remove(int bno) {
+		log.info("remove 서비스 임플시작");
+		return bdao.delete(bno);
+	}
+
+
 }

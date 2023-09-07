@@ -1,0 +1,41 @@
+package service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import domain.BoardVO;
+import repository.BoardDAO;
+import repository.BoardDAOImpl;
+
+
+public class BoardServiceImpl implements Service {
+    //로그 객체 선언
+	private static final Logger log = LoggerFactory.getLogger(BoardServiceImpl.class);
+	//DAO 객체 생성
+	private BoardDAO bdao; //interface
+	
+	public BoardServiceImpl() {
+		bdao = new BoardDAOImpl(); //repository -> class
+	}
+
+	@Override
+	public int add(BoardVO bvo) {
+	      log.info("service add check 2");
+	      return bdao.insert(bvo);
+	}
+
+	@Override
+	public List<BoardVO> getlist() {
+		 log.info("service     List<BoardVO>    check 2");
+		return bdao.selectList();
+	}
+
+	@Override
+	public void detailview(int bno) {
+		log.info("detailview가 서비스엔 들어옴");
+		return bdao.selectOne(bno);
+		
+	}
+}

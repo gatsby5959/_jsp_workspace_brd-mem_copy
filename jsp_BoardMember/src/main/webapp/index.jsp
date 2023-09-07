@@ -10,10 +10,10 @@
 <h1>Index Page(기본?페이지개념 인덱스페이지)</h1>
 <ul>
 	<li>
-		<a href="/brd/board/register">게시판 글쓰기로 이동...   href="board/brd/register"로 함</a>
+		<a href="/brd/register">게시판 글쓰기로 이동...   컨트롤로의 케이스 경로를 주는것 a href="/brd/register"   </a> 
 	</li>
-	<li>
-		<a href="/brd/board/list">게시판 리스트로 이동...</a>
+	<li>     
+		<a href="/brd/list">게시판 리스트로 이동...</a>
 	</li>
 </ul>
 </body>

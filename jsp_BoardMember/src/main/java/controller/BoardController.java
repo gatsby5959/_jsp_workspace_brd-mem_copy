@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,10 +47,12 @@ public class BoardController extends HttpServlet {
 		
 		//jsp에서 오는 요청 주소
 		String uri = request.getRequestURI(); //  /brd/register
-		String path = uri.substring(uri.lastIndexOf("/")+1);
+		String path = uri.substring(uri.lastIndexOf("/")+1);//
 		log.info("path>>>>>"+path);
-		
+		log.info("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+		log.info("switch문 바로 위");
 		switch(path) {////////////////////////////////////////////////////////////////////////////////////
+		
 		case "register":
 			log.info(" 여기까지옴1");
 			//글쓰기 페이지로 이동해서 페이지가 나오도록 설정
@@ -58,25 +61,109 @@ public class BoardController extends HttpServlet {
 		break; //케이스register끝
 		
 		case "insert":
-			log.info("인서트 1옴");	
-			String title = request.getParameter("title");
-			String writer = request.getParameter("writer");
-			String content = request.getParameter("content1234");
-			log.info(">>>>> insert check 1");
-			BoardVO bvo = new BoardVO(title, writer, content);
-			log.info("bvo >>>>>" + bvo);
-			isOk =bsv.add(bvo);
-			log.info((isOk>0)? "OK" : "Fail");
+			try {
+				log.info("인서트 1옴");	
+				String title = request.getParameter("title");
+				String writer = request.getParameter("writer");
+				String content = request.getParameter("content1234");
+				log.info(">>>>> insert check 1");
+				BoardVO bvo = new BoardVO(title, writer, content);
+				log.info("bvo >>>>>" + bvo);
+				isOk =bsv.add(bvo);
+				log.info((isOk>0)? "OK" : "Fail");
+				
+				destPage = "/index.jsp";
+				
+				log.info("인서트 잘 된듯 "+" isOk값은 "+isOk+" 임");
+			} catch (Exception e) {
+				log.info("인서트 에러");
+				e.printStackTrace();
+			}
+		break;//insert 끝
+		
+		case "list":
+			try {
+				log.info("리스트 1옴");
+				log.info(">>>>> list check 1");
+				List<BoardVO> listBoardVO =bsv.getlist();
+				request.setAttribute("req_set_list", listBoardVO); //받아온 리스트를 리퀘스트 객체 일단 짱박는듯
+				destPage = "/board/list.jsp";
+				log.info("list 케이스문 까진  잘 된듯");
+			} catch (Exception e) {
+				log.info("리스트 에러");
+				e.printStackTrace();
+			}
+		break;//list 끝
+
+		
+		case "detail":
+			try {
+				log.info("디테일잘들어옴");
+				int bno = Integer.parseInt((request.getParameter("bno")));
+				BoardVO bvo = bsv.detailview(bno);
+				request.setAttribute("keybvo", bvo); // 이렇게 셋하면 키값으로 옴겨진 jsp페지에서 뽑아옴 ex)${keybvo.bno}
+				destPage = "/board/detail.jsp";
+			} catch (Exception e) {
+				log.info("디테일에러");
+				e.printStackTrace();
+			}
+			break;
+		
+		case "modify":
+			try {
+				log.info("모디파이 들어옴");
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				BoardVO bvo = bsv.getdetailformodi(bno);
+				request.setAttribute("keybvo", bvo);
+				destPage = "/board/modify.jsp";
+			} catch (NumberFormatException e) {
+				log.info("모디파이케이스 에러");
+				e.printStackTrace();
+			}
+			break;
+		
+		case "edit":
+			try {
+				log.info("컨트롤로 edit case 시작");
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				
+				BoardVO bvo = new BoardVO(bno,title,content);
+				log.info("bvo는 " + bvo);
+				isOk = bsv.modifForEdit(bvo);
+				log.info((isOk>0)?"OK":"Fail");
+				destPage = "detail?bno="+bno;
+
+			} catch (Exception e) {
+				log.info("에디트 에러");
+				e.printStackTrace();
+			}
+			break;
 			
-			destPage = "/index.jsp";
-			
-			log.info("인서트 잘 된듯 "+" isOk값은 "+isOk+" 임");
-		break;
+		case "remove":
+			try {
+				log.info("리무브 들어옴");
+				int bno = Integer.parseInt(request.getParameter("bno"));  //이건  a태그로 ?get방식으로받아서 옴
+				int isOk = bsv.remove(bno);
+				log.info(      (isOk>0)?"OK":"Fail"         );
+				destPage = "list";
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				log.info("remove error");
+			}
+			break;
+		
 		
 		}//스위치문의 끝///////////////////////////////////////////////////////////////////////////////
 		
-		rdp= request.getRequestDispatcher(destPage);
-		rdp.forward(request, response);
+		
+		//.jsp파일이 아니라면 다시 case 잇는거 찾아보고.. 있으면 다시 컨트롤러 동작...     list등 .jsp가 없는 상황에서 컨트롤러 재동작
+		rdp= request.getRequestDispatcher(destPage);//둘이 한 세트
+		rdp.forward(request, response);//둘이 한 세트      
+		
+		
+		log.info("222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
 		
 	}
 
