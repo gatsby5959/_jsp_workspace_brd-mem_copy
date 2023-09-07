@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>여기는 수정페이지입니다.</h1>
-<form action = "/brd/edit">
+<form action = "/brd/edit"><!-- jsp페이지니까 /brd/를 써서 컨트롤러가 잡을수 있게 한다.  그중 edit케이스가 걸릴것이다. -->
 <table border = "1">
 	<tr>
 		<th>BNO</th>

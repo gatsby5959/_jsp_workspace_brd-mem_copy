@@ -114,7 +114,7 @@ public class BoardController extends HttpServlet {
 				log.info("모디파이 들어옴");
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				BoardVO bvo = bsv.getdetailformodi(bno);
-				request.setAttribute("keybvo", bvo);
+				request.setAttribute("keybvo", bvo); //여기서 keybvo 라는 키이름을 사용해봤다.
 				destPage = "/board/modify.jsp";
 			} catch (NumberFormatException e) {
 				log.info("모디파이케이스 에러");
