@@ -1,0 +1,10 @@
+package service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+public class BoardServiceImpl implements Service {
+    //로그 객체 선언
+	private static final Logger log = LoggerFactory.getLogger(BoardServiceImpl.class);
+}

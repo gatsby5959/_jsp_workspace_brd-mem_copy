@@ -1,0 +1,7 @@
+package repository;
+
+public class BoardDAOImpl implements BoardDAO {
+
+	//DB와 연결
+	
+}

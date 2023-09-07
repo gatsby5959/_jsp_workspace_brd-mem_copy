@@ -1,0 +1,17 @@
+package repository;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import service.BoardServiceImpl;
+
+public class BoardDAOImpl implements BoardDAO {
+
+    //로그 객체 선언
+	private static final Logger log = LoggerFactory.getLogger(BoardServiceImpl.class);
+	//DB와 연결
+	private SqlSession sql;
+	pirvate final String NS = "BoardMapper." //namespace.id
+	
+}
