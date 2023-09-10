@@ -1,0 +1,116 @@
+package domain;
+
+public class MemberVO {
+/*
+create table member(
+id varchar(100),
+pwd varchar(100) not null,
+email varchar(100) not null,
+age int default 0,
+regdate datetime default now(),
+lastlogin datetime default now(),
+primary key (id)
+);
+*/
+	
+	private String id;
+	private String pwd;
+	private String email;
+	private String age;
+	private String regdate;
+	private String lastlogin;
+	
+	
+	public MemberVO() {
+		//기본생성자 그냥 일단 만듬 빨간줄이 신경쓰임 ㅎㅎ
+	}
+	
+	public MemberVO(String id, String pwd) {
+		this.id = id;
+		this.pwd = pwd;
+	}
+
+	//String id, String pwd, String email, String age 내가 만듬
+	public MemberVO(String id, String pwd, String email, String age) {
+		this.id = id;
+		this.pwd = pwd;
+		this.email = email;
+		this.age = age;
+	}
+
+//	public MemberVO(String id, String pwd, String email, String age) {
+//		super();  //자동생성된거 안쓸꺼임 메롱
+//		this.id = id;
+//		this.pwd = pwd;
+//		this.email = email;
+//		this.age = age;
+//	}
+
+	public MemberVO(String id, String pwd, String email, String age, String regdate, String lastlogin) {
+		super();// 뭐 필요는 없지만 자동 생성됨
+		this.id = id;
+		this.pwd = pwd;
+		this.email = email;
+		this.age = age;
+		this.regdate = regdate;
+		this.lastlogin = lastlogin;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+
+	public String getLastlogin() {
+		return lastlogin;
+	}
+
+	public void setLastlogin(String lastlogin) {
+		this.lastlogin = lastlogin;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", pwd=" + pwd + ", email=" + email + ", age=" + age + ", regdate=" + regdate
+				+ ", lastlogin=" + lastlogin + "]";
+	}
+	
+	
+	
+	
+}

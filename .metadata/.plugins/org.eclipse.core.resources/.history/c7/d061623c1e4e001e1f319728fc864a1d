@@ -1,0 +1,12 @@
+package domain;
+
+public class MemberVO {
+	
+	public MemberVO() {
+		//기본생성자 그냥 일단 만듬
+	}
+
+	
+	
+	
+}

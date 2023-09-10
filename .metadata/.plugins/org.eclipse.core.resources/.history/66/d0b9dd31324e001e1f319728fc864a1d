@@ -1,0 +1,20 @@
+package repository;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import orm.DatabaseBuilder;
+
+
+public class MemberDAOImpl implements MemberDAO {
+
+	private static final Logger log = LoggerFactory.getLogger(MemberDAOImpl.class);  //클래스명.class
+	private SqlSession sql;
+	private final String NS = "MemberMapper."; //네임스페이스. 메퍼.xml파일의 id임...
+	
+	public MemberDAOImpl() {
+		new DatabaseBuilder();
+		sql = DatabaseBuilder.getFactory().openSession();
+	}
+}
