@@ -14,5 +14,9 @@ public interface MemberService {
 
 	List<MemberVO> getList();
 
+	int updateForEdit(MemberVO mvo);
+
+	int remove(String id);
+
 	
 }

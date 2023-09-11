@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import domain.BoardVO;
+import domain.PagingVO;
+import handler.PagingHandler;
 import service.BoardServiceImpl;
 import service.Service;
 
@@ -41,6 +43,7 @@ public class BoardController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//encoding 설정, contentType 설정, 요청경로 파악
 		log.info("서비스함수타기시작");
+		log.info("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -49,7 +52,6 @@ public class BoardController extends HttpServlet {
 		String uri = request.getRequestURI(); //  /brd/register
 		String path = uri.substring(uri.lastIndexOf("/")+1);//
 		log.info("path>>>>>"+path);
-		log.info("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
 		log.info("switch문 바로 위");
 		switch(path) {////////////////////////////////////////////////////////////////////////////////////
 		
@@ -94,7 +96,36 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 		break;//list 끝
-
+		
+		case "pageList":
+			try {
+				//jsp에서 파라미터 받기
+				PagingVO pgvo = new PagingVO();
+				log.info("페이징 직전임니다");
+				if(request.getParameter("pageNo") != null) {
+					log.info("페이징에 들어왔습니다.");
+					int pageNo = Integer.parseInt(request.getParameter("pageNo")); // 정확히 pageNo 가 맞아야 함   http://localhost:8088/brd/pageList?pageNo=7&qty=10
+					int qty = Integer.parseInt(request.getParameter("qty"));
+					log.info("pageNo "+pageNo+" qty "+qty);
+					pgvo = new PagingVO(pageNo,qty); //값이 있으면...
+				}
+				
+				int totalCount = bsv.getTotalCount(); //DB에서 전체 카운트 요청   뭐 주는건 없지만 전체 카운트 가져왕
+				log.info("전체 게시글 수 "+totalCount);		
+				//bsv pgvo 주고, limit 적용한 리스트 10개 가져오기.
+				List<BoardVO> list = bsv.getPageList(pgvo);
+				log.info("pagestart "+pgvo.getPageStart());
+				request.setAttribute("req_set_list", list); //여기에 set을의 키를 보드list.jsp페이지와 일치 시켜야 함
+				//페이지 정보를 list.jsp로 보내기
+				PagingHandler ph = new PagingHandler(pgvo, totalCount);
+				request.setAttribute("ph", ph);
+				log.info("paging 성공~!!");
+				destPage="/board/list.jsp";
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;//pageList 끝
 		
 		case "detail":
 			try {
@@ -147,7 +178,7 @@ public class BoardController extends HttpServlet {
 				int bno = Integer.parseInt(request.getParameter("bno"));  //이건  a태그로 ?get방식으로받아서 옴
 				int isOk = bsv.remove(bno);
 				log.info(      (isOk>0)?"OK":"Fail"         );
-				destPage = "list";
+				destPage = "pageList";
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 				log.info("remove error");

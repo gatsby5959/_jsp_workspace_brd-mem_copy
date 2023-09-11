@@ -41,4 +41,18 @@ public class MemberServiceImpl implements MemberService {
 		log.info("list check2 ");
 		return mdao.getList();
 	}
+
+	@Override
+	public int updateForEdit(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return mdao.update(mvo);
+	}
+
+	@Override
+	public int remove(String id) {
+		// TODO Auto-generated method stub
+		return mdao.delete(id);
+	}
+
+
 }

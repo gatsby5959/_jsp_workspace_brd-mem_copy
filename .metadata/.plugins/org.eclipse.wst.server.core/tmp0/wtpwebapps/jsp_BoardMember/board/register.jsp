@@ -10,9 +10,9 @@
 <h1>뭐 등록하는 페이지 삽입하려는 인풋값 페이지</h1>
 <form action="/brd/board/insert" method="post">
 	title제목!: <input type="text" name="title"><br>
-	writer작성자!: <input type="text" name="writer"><br>
+	writer작성자!: <input type="text" name="writer" value="${ses.id}" readonly="readonly"><br>
 	content내용물: <textarea rows="5" cols="60" name="content1234"></textarea><br>
-	<button type="submit">등록버튼입니다~</button>
+	<button type="submit">등록버튼입니다</button>
 </form>
 </body>
 </html>

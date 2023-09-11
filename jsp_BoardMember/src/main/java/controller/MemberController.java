@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import domain.BoardVO;
 import domain.MemberVO;
 import service.MemberService;
 import service.MemberServiceImpl;
@@ -127,8 +128,80 @@ public class MemberController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		
+		case "modify": 
+			try {
+				
+				destPage="/member/modify.jsp";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 			
-			
+		case "update":
+			//jsp 파라미터 가져와서 mvo 객체 생성
+			try {
+				log.info("컨트롤러 update 케이스 시작");
+				String id = request.getParameter("id"); //아이디는 못바꿔야지...
+				String pwd = request.getParameter("pwd");
+				String email = request.getParameter("email");
+				int age = Integer.parseInt(request.getParameter("age")); 	//원하는 객체 가져오기 끝
+
+				MemberVO mvo = new MemberVO(id, pwd,email,age);
+				
+				//msv에게 수정요청- > mdao 수정요청 -> mapper 수정요청
+				log.info("mvo는 " + mvo);
+				isOk = msv.updateForEdit(mvo);
+				log.info((isOk>0)?"OK":"Fail");
+				
+				
+				//세션 끊고 인덱스로 이동
+				//가져온 데이터를 세션에 저장
+				//세션가져오기
+//			MemberVO loginmvo = msv.login(mvo);
+//			if(loginmvo != null) {
+//				//연결된 세션이 있다면 기존의 세션 가져오기, 없으면 새로 생성
+//				HttpSession ses = request.getSession();
+//				ses.setAttribute("ses", loginmvo); // (뒤?에서?) "ses"하면 내가 로그인한 새션이라 생각하면됨  (키 , 밸류 값)
+//				ses.setMaxInactiveInterval(10*60); //로그인유지시간(초단위)(10*60초==10분)
+//				
+//				ses.invalidate();//세션 끝음
+//				destPage = "/index.jsp";
+//				break;
+//				
+//			}else {
+//				request.setAttribute("msg_login", 0); // 맵형식,   (키 밸류) 값
+//			}
+				
+				log.info("update check4"+ ((isOk>0)?"ok":"fail"));
+				destPage = "logout";
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
+		
+		case "remove":
+			try {
+				//세션에 저장된 id만 가져오기
+				HttpSession ses = request.getSession(); //현재 로그인 된 정보를 가져옴
+				MemberVO mvo = (MemberVO)ses.getAttribute("ses");
+				String id = mvo.getId();
+				//msv에 id주고 객체 삭제 요청 -> mdao id 삭제요청  -> mapper에서 삭제
+				log.info("ses에서 id 추출 >>> " + id);
+				isOk = msv.remove(id); //아직 세션 안끝음
+
+				//세션 끊고 index로 이동
+				ses.invalidate();//세션 끝음
+				log.info("logout >> "+ (isOk>0 ? "OK":"Fail"));
+				destPage = "/index.jsp";
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		break;
+		
 		
 		
 		}//end of switch

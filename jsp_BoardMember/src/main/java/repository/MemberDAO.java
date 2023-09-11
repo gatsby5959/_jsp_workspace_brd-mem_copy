@@ -14,4 +14,10 @@ public interface MemberDAO {
 
 	List<MemberVO> getList();
 
+//	int update();
+
+	int update(MemberVO mvo);
+
+	int delete(String id);
+
 }

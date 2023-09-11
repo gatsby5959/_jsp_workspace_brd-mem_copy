@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import domain.BoardVO;
+import domain.PagingVO;
 import orm.DatabaseBuilder;
 import service.BoardServiceImpl;
 
@@ -70,6 +71,18 @@ public class BoardDAOImpl implements BoardDAO {
 			sql.commit();
 		}
 		return isOk;
+	}
+
+	@Override
+	public int getTotalCount() {
+		
+		return sql.selectOne(NS+"cnt");
+	}
+
+	@Override
+	public List<BoardVO> getPageList(PagingVO pgvo) {
+		log.info("다오 임플 pgvo "+pgvo.toString());
+		return sql.selectList(NS+"page",pgvo);
 	}
 	
 }
