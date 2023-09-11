@@ -120,7 +120,7 @@ public class BoardController extends HttpServlet {
 				PagingHandler ph = new PagingHandler(pgvo, totalCount);
 				request.setAttribute("ph", ph);
 				log.info("paging 성공~!!");
-				destPage="/board/list.jsp";
+				destPage="/board/list.jsp"; //목적지는 /board/list.jsp다
 				
 			} catch (Exception e) {
 				e.printStackTrace();
