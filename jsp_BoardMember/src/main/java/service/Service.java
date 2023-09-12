@@ -19,9 +19,11 @@ public interface Service {
 
 	int remove(int bno);
 
-	int getTotalCount();
+//	int getTotalCount();
 
 	List<BoardVO> getPageList(PagingVO pgvo);
+
+	int getTotalCount(PagingVO pgvo);
 
 	
 

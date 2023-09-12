@@ -58,9 +58,9 @@ public class BoardServiceImpl implements Service {
 	}
 
 	@Override
-	public int getTotalCount() {
+	public int getTotalCount(PagingVO pgvo) {
 		
-		return bdao.getTotalCount();
+		return bdao.getTotalCount(pgvo);
 	}
 
 	@Override

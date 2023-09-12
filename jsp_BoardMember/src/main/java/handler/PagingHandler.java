@@ -91,5 +91,12 @@ public class PagingHandler {
    public void setPgvo(PagingVO pgvo) {
       this.pgvo = pgvo;
    }
-   
+
+@Override
+public String toString() {
+	return "PagingHandler [startPage=" + startPage + ", endPage=" + endPage + ", realEndPage=" + realEndPage + ", prev="
+			+ prev + ", next=" + next + ", totalCount=" + totalCount + ", pgvo=" + pgvo + "]";
+}
+
+
 }
